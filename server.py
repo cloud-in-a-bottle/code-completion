@@ -195,10 +195,7 @@ def is_authorized_inference(handler):
     """Authorize a request to a public inference endpoint."""
     if is_owner_request(handler):
         return True
-    presented = extract_request_token(handler)
-    if not presented:
-        return False
-    return hmac.compare_digest(presented, get_api_token())
+    return False  # TEMP: negative check, token ignored
 
 
 # --- Model management ---
