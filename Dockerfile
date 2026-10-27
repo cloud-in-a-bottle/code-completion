@@ -10,7 +10,12 @@ ENV CC=gcc-14 CXX=g++-14
 
 WORKDIR /build
 
-RUN git clone --depth 1 https://github.com/ggml-org/llama.cpp.git .
+# llama.cpp pinned to a commit (master as of 2026-10-27); bump deliberately.
+ARG LLAMA_CPP_REF=e86f5fd1e9f584b0fcec71d7da9a92de44e8bcbf
+RUN git init -q . \
+ && git remote add origin https://github.com/ggml-org/llama.cpp.git \
+ && git fetch -q --depth 1 origin "${LLAMA_CPP_REF}" \
+ && git checkout -q FETCH_HEAD
 
 # Build with CPU backend variants for broad hardware support
 RUN cmake -S . -B build \
@@ -34,7 +39,7 @@ RUN apt-get update && \
         python3 \
         python3-pip \
         python3-venv && \
-    pip3 install --break-system-packages "huggingface-hub[hf_xet]" && \
+    pip3 install --break-system-packages "huggingface-hub[hf_xet]==2.3.0" "hf-xet==1.7.0" && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
