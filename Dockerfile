@@ -10,8 +10,8 @@ ENV CC=gcc-14 CXX=g++-14
 
 WORKDIR /build
 
-# llama.cpp pinned to a commit (master as of 2026-10-27); bump deliberately.
-ARG LLAMA_CPP_REF=e86f5fd1e9f584b0fcec71d7da9a92de44e8bcbf
+# llama.cpp pinned to release v0.9.0, fetched by its commit; bump deliberately.
+ARG LLAMA_CPP_REF=cd959bae99ff4bed22bef2604f45241c09bbb8c8
 RUN git init -q . \
  && git remote add origin https://github.com/ggml-org/llama.cpp.git \
  && git fetch -q --depth 1 origin "${LLAMA_CPP_REF}" \
