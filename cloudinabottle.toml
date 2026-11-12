@@ -1,6 +1,6 @@
 [app]
 name = "code-completion"
-version = "1.0.0"
+version = "1.1.0"
 description = "Code completion server with model management UI and OpenAI-compatible API"
 
 [runtime.container]
